@@ -5,6 +5,7 @@ import getConf from '../getConf'
 import getScript from './getScript'
 import { isGhooks, isHusky, isPreCommit, isYorkie } from './is'
 
+// `source-git` doesn't support `pre-rebase`, `push-to-checkout`, and `sendemail-validate`
 const hookList = [
   'applypatch-msg',
   'pre-applypatch',
@@ -13,7 +14,6 @@ const hookList = [
   'prepare-commit-msg',
   'commit-msg',
   'post-commit',
-  'pre-rebase',
   'post-checkout',
   'post-merge',
   'pre-push',
@@ -21,10 +21,8 @@ const hookList = [
   'update',
   'post-receive',
   'post-update',
-  'push-to-checkout',
   'pre-auto-gc',
-  'post-rewrite',
-  'sendemail-validate'
+  'post-rewrite'
 ]
 
 function writeHook(filename: string, script: string): void {
@@ -34,7 +32,7 @@ function writeHook(filename: string, script: string): void {
 
 function createHook(filename: string, script: string): void {
   // Get name, used for logging
-  const name = path.basename(filename)
+  const name = path.basename(path.dirname(filename), '.d')
 
   // Check if hook exist
   if (fs.existsSync(filename)) {
@@ -101,9 +99,9 @@ function isInNodeModules(dir: string): boolean {
 }
 
 function getHooks(gitDir: string): string[] {
-  const gitHooksDir = path.join(gitDir, 'hooks')
+  const gitHooksDir = path.join(gitDir, 'hooks_multi')
   return hookList.map((hookName: string): string =>
-    path.join(gitHooksDir, hookName)
+    path.join(gitHooksDir, `${hookName}.d/17_local_husky.sh`)
   )
 }
 
@@ -158,7 +156,7 @@ export function install(
   }
 
   // Create hooks directory if it doesn't exist
-  const gitHooksDir = path.join(gitDir, 'hooks')
+  const gitHooksDir = path.join(gitDir, 'hooks_multi')
   if (!fs.existsSync(gitHooksDir)) {
     fs.mkdirSync(gitHooksDir)
   }
