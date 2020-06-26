@@ -1,6 +1,6 @@
 {
-  "name": "husky",
-  "version": "2.6.0",
+  "name": "husky-bird",
+  "version": "2.6.0-twitter.0",
   "description": "Prevents bad commit or push (git hooks, pre-commit/precommit, pre-push/prepush, post-merge/postmerge and all that stuff...)",
   "bin": {
     "husky-run": "./run.js",
@@ -16,8 +16,6 @@
     "devinstall": "npm run build && npm run install -- node_modules/husky && node scripts/dev-fix-path",
     "devuninstall": "npm run build && npm run preuninstall -- node_modules/husky",
     "build": "del-cli lib && tsc",
-    "version": "jest -u && git add -A src/installer/__tests__/__snapshots__",
-    "postversion": "git push && git push --tags",
     "prepublishOnly": "npm run test && npm run build && pinst --enable && pkg-ok",
     "postpublish": "pinst --disable",
     "lint": "eslint . --ext .js,.ts --ignore-path .gitignore",
@@ -25,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/typicode/husky.git"
+    "url": "git+https://github.com/VinceMalone/husky.git"
   },
   "keywords": [
     "git",
@@ -42,7 +40,6 @@
     "test",
     "lint"
   ],
-  "author": "Typicode <typicode@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/typicode/husky/issues"
@@ -97,9 +94,5 @@
       "json",
       "node"
     ]
-  },
-  "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/husky"
   }
 }
