@@ -1,6 +1,9 @@
 {
-  "name": "husky",
-  "version": "2.6.0",
+  "publishConfig": {
+    "registry": "https://artifactory.twitter.biz/api/npm/js-releases-local"
+  },
+  "name": "@twitter/husky",
+  "version": "2.6.0-twitter.0",
   "description": "Prevents bad commit or push (git hooks, pre-commit/precommit, pre-push/prepush, post-merge/postmerge and all that stuff...)",
   "bin": {
     "husky-run": "./run.js",
@@ -16,9 +19,7 @@
     "devinstall": "npm run build && npm run install -- node_modules/husky && node scripts/dev-fix-path",
     "devuninstall": "npm run build && npm run preuninstall -- node_modules/husky",
     "build": "del-cli lib && tsc",
-    "version": "jest -u && git add -A src/installer/__tests__/__snapshots__",
-    "postversion": "git push && git push --tags",
-    "prepublishOnly": "npm run test && npm run build && pinst --enable && pkg-ok",
+    "prepublishOnly": "npm run build && pinst --enable && pkg-ok",
     "postpublish": "pinst --disable",
     "lint": "eslint . --ext .js,.ts --ignore-path .gitignore",
     "fix": "npm run lint -- --fix"
