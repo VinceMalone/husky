@@ -43,8 +43,11 @@ ${huskyIdentifier}
 #   Homepage: ${pkgHomepage}
 
 scriptPath="${runScriptPath}.js"
-hookName=\`basename "$0"\`
 gitParams="$*"
+
+# source-git has a custom hook system
+# e.g. it's no longer \`.git/hooks/pre-commit\`, it's now \`.git/hooks_multi/pre-commit.d/*\`
+hookName=\`basename $(dirname "$0") .d\`
 
 debug() {
   if [ "$\{HUSKY_DEBUG}" = "true" ] || [ "$\{HUSKY_DEBUG}" = "1" ]; then

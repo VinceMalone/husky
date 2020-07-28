@@ -11,9 +11,9 @@
   },
   "scripts": {
     "test": "npm run lint && jest",
-    "_install": "node husky install",
+    "install": "node husky install",
     "preuninstall": "node husky uninstall",
-    "devinstall": "npm run build && npm run _install -- node_modules/husky && node scripts/dev-fix-path",
+    "devinstall": "npm run build && npm run install -- node_modules/husky && node scripts/dev-fix-path",
     "devuninstall": "npm run build && npm run preuninstall -- node_modules/husky",
     "build": "del-cli lib && tsc",
     "version": "jest -u && git add -A src/installer/__tests__/__snapshots__",
@@ -21,8 +21,7 @@
     "prepublishOnly": "npm run test && npm run build && pinst --enable && pkg-ok",
     "postpublish": "pinst --disable",
     "lint": "eslint . --ext .js,.ts --ignore-path .gitignore",
-    "fix": "npm run lint -- --fix",
-    "postinstall": "opencollective-postinstall || true"
+    "fix": "npm run lint -- --fix"
   },
   "repository": {
     "type": "git",
@@ -98,9 +97,5 @@
       "json",
       "node"
     ]
-  },
-  "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/husky"
   }
 }

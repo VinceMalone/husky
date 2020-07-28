@@ -11,7 +11,7 @@ export default function(): {
     const { stdout } = execa.sync('git', [
       'rev-parse',
       '--show-toplevel',
-      '--git-common-dir'
+      '--git-dir'
     ])
 
     const [topLevel, gitDir] = stdout
